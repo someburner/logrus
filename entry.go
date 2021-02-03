@@ -234,6 +234,10 @@ func (entry Entry) log(level Level, msg string) {
 
 	entry.fireHooks()
 
+	if entry.Logger.HooksOnly {
+		return
+	}
+
 	buffer = getBuffer()
 	defer func() {
 		entry.Buffer = nil
