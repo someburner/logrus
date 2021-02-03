@@ -14,7 +14,9 @@ import (
 )
 
 const (
+	white  = 1
 	red    = 31
+	green  = 32
 	yellow = 33
 	blue   = 36
 	gray   = 37
@@ -235,8 +237,10 @@ func (f *TextFormatter) printColored(b *bytes.Buffer, entry *Entry, keys []strin
 		levelColor = yellow
 	case ErrorLevel, FatalLevel, PanicLevel:
 		levelColor = red
+	case OkayLevel:
+		levelColor = green
 	case InfoLevel:
-		levelColor = blue
+		levelColor = white
 	default:
 		levelColor = blue
 	}

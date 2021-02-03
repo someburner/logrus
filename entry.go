@@ -298,6 +298,10 @@ func (entry *Entry) Info(args ...interface{}) {
 	entry.Log(InfoLevel, args...)
 }
 
+func (entry *Entry) Ok(args ...interface{}) {
+	entry.Log(OkayLevel, args...)
+}
+
 func (entry *Entry) Warn(args ...interface{}) {
 	entry.Log(WarnLevel, args...)
 }
@@ -337,6 +341,10 @@ func (entry *Entry) Debugf(format string, args ...interface{}) {
 
 func (entry *Entry) Infof(format string, args ...interface{}) {
 	entry.Logf(InfoLevel, format, args...)
+}
+
+func (entry *Entry) Okf(format string, args ...interface{}) {
+	entry.Logf(OkayLevel, format, args...)
 }
 
 func (entry *Entry) Printf(format string, args ...interface{}) {
@@ -382,6 +390,10 @@ func (entry *Entry) Debugln(args ...interface{}) {
 
 func (entry *Entry) Infoln(args ...interface{}) {
 	entry.Logln(InfoLevel, args...)
+}
+
+func (entry *Entry) Okln(args ...interface{}) {
+	entry.Logln(OkayLevel, args...)
 }
 
 func (entry *Entry) Println(args ...interface{}) {

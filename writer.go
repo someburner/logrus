@@ -36,6 +36,8 @@ func (entry *Entry) WriterLevel(level Level) *io.PipeWriter {
 		printFunc = entry.Debug
 	case InfoLevel:
 		printFunc = entry.Info
+	case OkayLevel:
+		printFunc = entry.Ok
 	case WarnLevel:
 		printFunc = entry.Warn
 	case ErrorLevel:

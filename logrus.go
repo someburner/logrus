@@ -34,6 +34,8 @@ func ParseLevel(lvl string) (Level, error) {
 		return WarnLevel, nil
 	case "info":
 		return InfoLevel, nil
+	case "okay":
+		return OkayLevel, nil
 	case "debug":
 		return DebugLevel, nil
 	case "trace":
@@ -64,6 +66,8 @@ func (level Level) MarshalText() ([]byte, error) {
 		return []byte("debug"), nil
 	case InfoLevel:
 		return []byte("info"), nil
+	case OkayLevel:
+		return []byte("okay"), nil
 	case WarnLevel:
 		return []byte("warning"), nil
 	case ErrorLevel:
@@ -83,6 +87,7 @@ var AllLevels = []Level{
 	FatalLevel,
 	ErrorLevel,
 	WarnLevel,
+	OkayLevel,
 	InfoLevel,
 	DebugLevel,
 	TraceLevel,
@@ -102,6 +107,8 @@ const (
 	ErrorLevel
 	// WarnLevel level. Non-critical entries that deserve eyes.
 	WarnLevel
+	// OkayLevel level. Success messages.
+	OkayLevel
 	// InfoLevel level. General operational entries about what's going on inside the
 	// application.
 	InfoLevel
@@ -143,6 +150,7 @@ type FieldLogger interface {
 
 	Debugf(format string, args ...interface{})
 	Infof(format string, args ...interface{})
+	Okf(format string, args ...interface{})
 	Printf(format string, args ...interface{})
 	Warnf(format string, args ...interface{})
 	Warningf(format string, args ...interface{})
@@ -152,6 +160,7 @@ type FieldLogger interface {
 
 	Debug(args ...interface{})
 	Info(args ...interface{})
+	Ok(args ...interface{})
 	Print(args ...interface{})
 	Warn(args ...interface{})
 	Warning(args ...interface{})
@@ -161,6 +170,7 @@ type FieldLogger interface {
 
 	Debugln(args ...interface{})
 	Infoln(args ...interface{})
+	Okln(args ...interface{})
 	Println(args ...interface{})
 	Warnln(args ...interface{})
 	Warningln(args ...interface{})

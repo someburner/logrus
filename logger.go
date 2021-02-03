@@ -165,6 +165,10 @@ func (logger *Logger) Infof(format string, args ...interface{}) {
 	logger.Logf(InfoLevel, format, args...)
 }
 
+func (logger *Logger) Okf(format string, args ...interface{}) {
+	logger.Logf(OkayLevel, format, args...)
+}
+
 func (logger *Logger) Printf(format string, args ...interface{}) {
 	entry := logger.newEntry()
 	entry.Printf(format, args...)
@@ -220,6 +224,10 @@ func (logger *Logger) Info(args ...interface{}) {
 	logger.Log(InfoLevel, args...)
 }
 
+func (logger *Logger) Ok(args ...interface{}) {
+	logger.Log(OkayLevel, args...)
+}
+
 func (logger *Logger) Print(args ...interface{}) {
 	entry := logger.newEntry()
 	entry.Print(args...)
@@ -257,6 +265,10 @@ func (logger *Logger) DebugFn(fn LogFunction) {
 
 func (logger *Logger) InfoFn(fn LogFunction) {
 	logger.LogFn(InfoLevel, fn)
+}
+
+func (logger *Logger) OkFn(fn LogFunction) {
+	logger.LogFn(OkayLevel, fn)
 }
 
 func (logger *Logger) PrintFn(fn LogFunction) {
@@ -304,6 +316,10 @@ func (logger *Logger) Debugln(args ...interface{}) {
 
 func (logger *Logger) Infoln(args ...interface{}) {
 	logger.Logln(InfoLevel, args...)
+}
+
+func (logger *Logger) Okln(args ...interface{}) {
+	logger.Logln(OkayLevel, args...)
 }
 
 func (logger *Logger) Println(args ...interface{}) {

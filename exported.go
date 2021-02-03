@@ -109,6 +109,11 @@ func Info(args ...interface{}) {
 	std.Info(args...)
 }
 
+// Ok logs a message at level Okay on the standard logger.
+func Ok(args ...interface{}) {
+	std.Ok(args...)
+}
+
 // Warn logs a message at level Warn on the standard logger.
 func Warn(args ...interface{}) {
 	std.Warn(args...)
@@ -154,6 +159,11 @@ func InfoFn(fn LogFunction) {
 	std.InfoFn(fn)
 }
 
+// OkFn logs a message from a func at level Okay on the standard logger.
+func OkFn(fn LogFunction) {
+	std.OkFn(fn)
+}
+
 // WarnFn logs a message from a func at level Warn on the standard logger.
 func WarnFn(fn LogFunction) {
 	std.WarnFn(fn)
@@ -197,6 +207,11 @@ func Printf(format string, args ...interface{}) {
 // Infof logs a message at level Info on the standard logger.
 func Infof(format string, args ...interface{}) {
 	std.Infof(format, args...)
+}
+
+// Okf logs a message at level Okay on the standard logger.
+func Okf(format string, args ...interface{}) {
+	std.Okf(format, args...)
 }
 
 // Warnf logs a message at level Warn on the standard logger.
