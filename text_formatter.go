@@ -58,6 +58,9 @@ type TextFormatter struct {
 	// TimestampFormat to use for display when a full timestamp is printed
 	TimestampFormat string
 
+	// Location overrides the default timestamp location (roughly: timezone)
+	Location *time.Location
+
 	// The fields are sorted by default for a consistent output. For applications
 	// that log extremely frequently and don't use the JSON formatter this may not
 	// be desired.
@@ -206,7 +209,13 @@ func (f *TextFormatter) Format(entry *Entry) ([]byte, error) {
 			var value interface{}
 			switch {
 			case key == f.FieldMap.resolve(FieldKeyTime):
-				value = entry.Time.Format(timestampFormat)
+				// value = entry.Time.Format(timestampFormat)
+				// hack to log with specific time.Location
+				moment := entry.Time
+				if f.Location != nil {
+					moment = moment.In(f.Location)
+				}
+				value = moment.Format(timestampFormat)
 			case key == f.FieldMap.resolve(FieldKeyLevel):
 				value = entry.Level.String()
 			case key == f.FieldMap.resolve(FieldKeyMsg):
@@ -287,7 +296,12 @@ func (f *TextFormatter) printColored(b *bytes.Buffer, entry *Entry, keys []strin
 	case !f.FullTimestamp:
 		fmt.Fprintf(b, "\x1b[%dm%s\x1b[0m[%04d]%s %-44s ", levelColor, levelText, int(entry.Time.Sub(baseTimestamp)/time.Second), caller, entry.Message)
 	default:
-		fmt.Fprintf(b, "\x1b[%dm%s\x1b[0m[%s]%s %-44s ", levelColor, levelText, entry.Time.Format(timestampFormat), caller, entry.Message)
+		// hack to log with specific time.Location
+		moment := entry.Time
+		if f.Location != nil {
+			moment = moment.In(f.Location)
+		}
+		fmt.Fprintf(b, "\x1b[%dm%s\x1b[0m[%s]%s %-44s ", levelColor, levelText, moment.Format(timestampFormat), caller, entry.Message)
 	}
 	for _, k := range keys {
 		v := data[k]
